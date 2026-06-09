@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(perl -0pi -e 's/h-\\\\[27vh\\\\] w-auto cursor-zoom-in/h-[40vh] w-auto cursor-zoom-in/g; s/h-\\\\[6vh\\\\] w-auto cursor-zoom-in/h-[9vh] w-auto cursor-zoom-in/' src/App.jsx)",
+      "Bash(node -e ' *)",
+      "Bash(ffmpeg -version)",
+      "Bash(brew --version)",
+      "Bash(brew install *)",
+      "Bash(echo \"exit=$?\")"
+    ]
+  }
+}

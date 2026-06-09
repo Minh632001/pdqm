@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx eslint *)",
+      "Bash(npx vite *)",
+      "Bash(node -e ' *)",
+      "Read(//tmp/**)",
+      "Bash(perl -0pi -e 's/h-\\\\[55vh\\\\] w-full cursor-zoom-in/h-[27vh] w-full cursor-zoom-in/; s/h-\\\\[55vh\\\\] w-auto cursor-zoom-in/h-[27vh] w-auto cursor-zoom-in/; s/h-\\\\[13vh\\\\] w-auto cursor-zoom-in/h-[6.5vh] w-auto cursor-zoom-in/' src/App.jsx)"
+    ]
+  }
+}
