@@ -2385,18 +2385,24 @@ export default function App() {
     return () => ctx.revert();
   }, []);
 
+  // Eye-tracking: throttle to one layout read per frame (getBoundingClientRect
+  // forces a reflow, so doing it on every mousemove janked the whole page), and
+  // skip entirely once the hero has scrolled out of view.
+  const eyeTickRef = useRef(false);
   function handleMouseMove(event) {
-    if (!imageRef.current) return;
-
-    const rect = imageRef.current.getBoundingClientRect();
-
-    const catCenterX = rect.left + rect.width * CAT_CENTER.x;
-    const catCenterY = rect.top + rect.height * CAT_CENTER.y;
-
-    const dx = event.clientX - catCenterX;
-    const dy = event.clientY - catCenterY;
-
-    setEyeSrc(pickEyeAsset(dx, dy));
+    if (eyeTickRef.current || !imageRef.current) return;
+    eyeTickRef.current = true;
+    const { clientX, clientY } = event;
+    requestAnimationFrame(() => {
+      eyeTickRef.current = false;
+      const el = imageRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
+      const catCenterX = rect.left + rect.width * CAT_CENTER.x;
+      const catCenterY = rect.top + rect.height * CAT_CENTER.y;
+      setEyeSrc(pickEyeAsset(clientX - catCenterX, clientY - catCenterY));
+    });
   }
 
   function handleMouseLeave() {
